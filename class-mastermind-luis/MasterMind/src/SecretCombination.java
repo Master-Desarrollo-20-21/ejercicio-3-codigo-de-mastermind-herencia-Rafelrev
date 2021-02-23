@@ -2,17 +2,16 @@ import java.util.Random;
 
 public class SecretCombination extends Combination {
 
-    private char[] secretCombination;
     private final int NUM_DIGITS_SECRET_COMBINATION = 4;
 
     public SecretCombination() {
         super();
-        this.secretCombination = new char[NUM_DIGITS_SECRET_COMBINATION];
+        this.combinacion = new char[NUM_DIGITS_SECRET_COMBINATION];
     }
 
     public void init(){
        for(int i=0 ; i<NUM_DIGITS_SECRET_COMBINATION;i++){
-           this.secretCombination[i] = 'x';
+           this.combinacion[i] = 'x';
        }
     }
 
@@ -33,7 +32,7 @@ public class SecretCombination extends Combination {
 
     private boolean isCompleto() {
         for (int i = 0; i < 4; i++) {
-            if (secretCombination[i] == 'x') {
+            if (combinacion[i] == 'x') {
                 return false;
             }
         }
@@ -42,7 +41,7 @@ public class SecretCombination extends Combination {
 
     private boolean existe(char color) {
         for (int i = 0; i < 4; i++) {
-            if (secretCombination[i] == color) {
+            if (combinacion[i] == color) {
                 return true;
             }
         }
@@ -51,8 +50,8 @@ public class SecretCombination extends Combination {
 
     private void añade(char color) {
         for (int i = 0; i < 4; i++) {
-            if (secretCombination[i] == 'x') {
-                secretCombination[i] = color;
+            if (combinacion[i] == 'x') {
+                combinacion[i] = color;
                 break;
             }
         }
@@ -62,41 +61,20 @@ public class SecretCombination extends Combination {
     protected void show() {
         String secretCombination = "";
         for (int i = 0; i < 4; i++) {
-            secretCombination += this.secretCombination[i];
+            secretCombination += this.combinacion[i];
         }
         new MyConsole().out(secretCombination);
     }
 
-
-
-    @Override
-    protected boolean isTheSecretCombination() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    protected void guarda() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     protected void check(Combination combination) {
         ProposedCombination proposedCombination = (ProposedCombination) combination;
         for (int i = 0; i < 4; i++) {
-            if (proposedCombination.getCombination()[i] != this.secretCombination[i])
+            if (proposedCombination.getCombination()[i] != this.combinacion[i])
                 proposedCombination.sumBlacks();
             else
                 proposedCombination.sumWhites();
         }
 
-    }
-
-    @Override
-    protected boolean isValid() {
-        // TODO Auto-generated method stub
-        return false;
     }
 
 	public String showHide() {

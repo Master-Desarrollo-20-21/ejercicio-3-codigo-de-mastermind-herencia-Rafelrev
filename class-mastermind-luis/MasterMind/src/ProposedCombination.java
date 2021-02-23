@@ -37,7 +37,6 @@ public class ProposedCombination extends Combination{
         this.numWhites++;
     }
 
-    @Override
 	public boolean isTheSecretCombination() {
 		return numWhites == 4;
 	}
@@ -53,7 +52,5 @@ public class ProposedCombination extends Combination{
 
     }
 
-    @Override
-    protected void check(Combination combination) { }
     
 }

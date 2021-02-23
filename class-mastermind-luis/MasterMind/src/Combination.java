@@ -6,8 +6,6 @@ public abstract class Combination {
 
     public enum Colors {
         R, B, Y, O;
-
-        
         public static String getStringColors() {
             return "R,B,Y,O";
         }
@@ -23,10 +21,6 @@ public abstract class Combination {
     }
 
     protected abstract void show();
-	protected abstract boolean isTheSecretCombination();
-    protected abstract void guarda();
-    protected abstract void check(Combination combination);
-    protected abstract boolean isValid();
 
 
 

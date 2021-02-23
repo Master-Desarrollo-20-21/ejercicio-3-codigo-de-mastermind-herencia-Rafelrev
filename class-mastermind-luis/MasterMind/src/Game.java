@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Game {
 
-	private static final int MAX_NUM_INTENTOS = 5;
+	private static final int MAX_NUM_INTENTOS = 10;
 	private MyConsole myConsole;
-	private List<Combination> combinacionesPropuestas = new ArrayList<Combination>();
+	private List<ProposedCombination> combinacionesPropuestas = new ArrayList<ProposedCombination>();
 	private SecretCombination secretCombination;
 
 	public Game() {
@@ -15,9 +15,8 @@ public class Game {
 	}
 
 	public void start() {
-		
+		this.myConsole.out("\n --- MasterMind 0.0.1 ---");
 		this.secretCombination.createSecretCombination();
-		this.secretCombination.show();
 		this.combinacionesPropuestas.clear();
 	}
 
@@ -25,7 +24,10 @@ public class Game {
 
 		do {
 			this.muestraCombinaciones();
-			Combination CombinacionPropuesta = this.preguntaCombinacion();
+			ProposedCombination combinacionPropuesta = this.preguntaCombinacion();
+			combinacionPropuesta.guarda();
+			combinacionesPropuestas.add(combinacionPropuesta);
+			this.secretCombination.check(combinacionPropuesta);
 		} while (!this.hasWon() && !this.hasLose());
 
 		if (hasWon()) {
@@ -34,18 +36,18 @@ public class Game {
 		if (hasLose()) {
 			this.muestraCombinaciones();
 			myConsole.out("You've lost!!! :-(");
+			myConsole.out("The Secret:");
+			this.secretCombination.show();
 		}
 
 	}
 
-	private Combination preguntaCombinacion() {
-		Combination combinacionPropuesta;
+	private ProposedCombination preguntaCombinacion() {
+		ProposedCombination combinacionPropuesta;
 		do {
 			combinacionPropuesta = new ProposedCombination(myConsole.read("Propon una Combinacion:"));
 		} while (!combinacionPropuesta.isValid());
-		combinacionPropuesta.guarda();
-		combinacionesPropuestas.add(combinacionPropuesta);
-		this.secretCombination.check(combinacionPropuesta);
+
 		return combinacionPropuesta;
 	}
 
@@ -63,7 +65,7 @@ public class Game {
 	}
 
 	public boolean hasWon() {
-		for (Combination combination : combinacionesPropuestas) {
+		for (ProposedCombination combination : combinacionesPropuestas) {
 			if (combination.isTheSecretCombination()) {
 				return true;
 			}
